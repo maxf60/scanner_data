@@ -3,6 +3,7 @@ const requestSync = require("sync-request"),
 const {URL} = require('url');
 
 const dstPath = "../cfd.json";
+const dstGroupsPath = "../../groups/indices.json";
 const groups = [
     {url: "http://hub1.tradingview.com:8094/symbols/dxy_idc2", region: "Americas"},
     {url: "http://hub1.tradingview.com:8094/symbols/us_chicago_indices", region: "Americas"},
@@ -19,6 +20,7 @@ const groups = [
         url: "http://hub1.tradingview.com:8094/symbols/forex_tvc",
         exclude: ["TVC:USOIL", "TVC:UKOIL"]
     },
+    {url: "http://hub1.tradingview.com:8094/symbols/nzx_tvc_indices", region: "Pacific"},
     {
         url: "http://hub1.tradingview.com:8094/symbols/fxcm_cfd?domain=tvbs",
         include: ["FX:USOIL", "FX:UKOIL"]
@@ -48,7 +50,10 @@ const groups = [
     },
     {
         url: "http://idc.tradingview.com/udf_proxy/symbols/euronext_indices",
-        include: ["EURONEXT:PX1"],
+        include: [
+            "EURONEXT:PX1",
+            "EURONEXT:AEX",
+            "EURONEXT:BEL20"],
         region: "Europe"
     },
     {
@@ -77,13 +82,18 @@ const groups = [
         region: "Asia"
     },
     {
+        url: "http://idc.tradingview.com/udf_proxy/symbols/bse_indices",
+        include: ["BSE:SENSEX"],
+        region: "Asia"
+    },
+    {
         url: "http://idc.tradingview.com/udf_proxy/symbols/moex_indices",
         include: ["MOEX:IMOEX"],
         region: "Europe"
     },
     {
-        url: "http://hub1.tradingview.com:8094/symbols/nzx_tvc_indices",
-        include: ["TVC:NZ50G"],
+        url: "http://hub1.tradingview.com:8094/symbols/nzx_indices",
+        include: ["NZX:NZ50G"],
         region: "Pacific"
     },
     {
@@ -101,7 +111,137 @@ const groups = [
         include: ["TVC:STI"],
         region: "Asia"
     },
-];
+    {
+        url: "http://hub1.tradingview.com:8094/symbols/swiss_indices",
+        include: ["SIX:SMI"],
+        region: "Europe"
+    },
+    {
+        url: "http://hub1.tradingview.com:8094/symbols/hangseng_indices",
+        include: ["HSI:HSI"],
+        region: "Asia"
+    },
+    {
+        url: "http://hub1.tradingview.com:8094/symbols/xetra_indices",
+        include: ["XETR:DAX"],
+        region: "Europe"
+    },
+    {
+        url: "http://hub1.tradingview.com:8094/symbols/istanbul_indices",
+        include: ["BIST:XU100"],
+        region: "Europe"
+    },
+    {
+        url: "http://hub1.tradingview.com:8094/symbols/warsaw_indices",
+        include: ["GPW:WIG20"],
+        region: "Europe"
+    },
+    {
+        url: "http://idc.tradingview.com/udf_proxy/symbols/mexico_indices",
+        include: ["BMV:ME"],
+        region: "Americas"
+    },
+    {
+        url: "http://hub1.tradingview.com:8094/symbols/egyptian_indices",
+        include: ["EGX:EGX30"],
+        region: "Middle East"
+    },
+    {
+        url: "http://hub1.tradingview.com:8094/symbols/santiago_indices",
+        include: ["BCS:IPSA"],
+        region: "Americas"
+    },
+    {
+        "url": "http://idc.tradingview.com/udf_proxy/symbols/bahrain_indices",
+        "include": ["BAHRAIN:BSEX"],
+        "region": "Middle East"
+    },
+    {
+        "url": "http://idc.tradingview.com/udf_proxy/symbols/belgrade_indices",
+        "include": ["BELEX:BELEX15"],
+        "region": "Europe"
+    },
+    {
+        "url": "http://idc.tradingview.com/udf_proxy/symbols/buenosaires_indices",
+        "include": ["BCBA:IMV"],
+        "region": "Americas"
+    },
+    {
+        "url": "http://idc.tradingview.com/udf_proxy/symbols/colombia_indices",
+        "include": ["BVC:IGBC"],
+        "region": "Americas"
+    },
+    {
+        "url": "http://idc.tradingview.com/udf_proxy/symbols/dubai_indices",
+        "include": ["DFM:DFMGI"],
+        "region": "Middle East"
+    },
+    {
+        "url": "http://idc.tradingview.com/udf_proxy/symbols/indonesia_indices",
+        "include": ["IDX:COMPOSITE"],
+        "region": "Asia"
+    },
+    {
+        "url": "http://idc.tradingview.com/udf_proxy/symbols/lima_indices",
+        "include": ["BVL:SPBLPGPT"],
+        "region": "Americas"
+    },
+    {
+        "url": "http://idc.tradingview.com/udf_proxy/symbols/luxembourg_indices",
+        "include": ["LUXSE:LUXX"],
+        "region": "Europe"
+    },
+    {
+        "url": "http://idc.tradingview.com/udf_proxy/symbols/malaysia_ftse_indices",
+        "include": ["FTSEMYX:FBMKLCI"],
+        "region": ""
+    },
+    {
+        "url": "http://idc.tradingview.com/udf_proxy/symbols/milan_indices",
+        "include": ["MIL:FTSEMIB"],
+        "region": "Europe"
+    },
+    {
+        "url": "http://idc.tradingview.com/udf_proxy/symbols/nigerian_indices",
+        "include": ["NSENG:NSE30"],
+        "region": "Africa"
+    },
+    {
+        "url": "http://idc.tradingview.com/udf_proxy/symbols/qatar_indices",
+        "include": ["QSE:GNRI"],
+        "region": "Middle East"
+    },
+    {
+        "url": "http://idc.tradingview.com/udf_proxy/symbols/riga_indices",
+        "include": ["OMXRSE:OMXRGI"],
+        "region": "Europe"
+    },
+    {
+        "url": "http://idc.tradingview.com/udf_proxy/symbols/saudi_indices",
+        "include": ["TADAWUL:TASI"],
+        "region": "Middle East"
+    },
+    {
+        "url": "http://idc.tradingview.com/udf_proxy/symbols/shenzhen_indices",
+        "include": ["SZSE:399001"],
+        "region": "Asia"
+    },
+    {"url": "http://idc.tradingview.com/udf_proxy/symbols/taiwan_indices", "include": ["TWSE:TAIEX"], "region": "Asia"},
+    {
+        "url": "http://idc.tradingview.com/udf_proxy/symbols/tallinn_indices",
+        "include": ["OMXTSE:OMXTGI"],
+        "region": "Europe"
+    },
+    {
+        "url": "http://idc.tradingview.com/udf_proxy/symbols/telaviv_indices",
+        "include": ["TASE:TA35"],
+        "region": "Middle East"
+    },
+    {
+        "url": "http://idc.tradingview.com/udf_proxy/symbols/vilnius_indices",
+        "include": ["OMXVSE:OMXVGI"],
+        "region": "Europe"
+    }];
 
 const types = {
     "cfd": true,
@@ -246,25 +386,51 @@ const majorIndices = [
     {"s": "SP:SPX", "cc": "US"},
     {"s": "TVC:IXIC", "cc": "US"},
     {"s": "DJ:DJI", "cc": "US"},
-    {"s": "TVC:UKX", "cc": "GB"},
-    {"s": "TVC:NI225", "cc": "JP"},
-    {"s": "TVC:HSI", "cc": "HK"},
-    {"s": "TVC:SHCOMP", "cc": "CN"},
-    {"s": "TVC:DAX", "cc": "DE"},
-    {"s": "TVC:DEU30", "cc": "DE"},
-    {"s": "EURONEXT:PX1", "cc": "FR"},
-    {"s": "TVC:SX5E", "cc": "EU"},
-    {"s": "TSX:TSX", "cc": "CA"},
     {"s": "CBOE:VIX", "cc": "US"},
+    {"s": "TSX:TSX", "cc": "CA"},
+    {"s": "TVC:UKX", "cc": "GB"},
+    {"s": "XETR:DAX", "cc": "DE"},
+    {"s": "EURONEXT:PX1", "cc": "FR"},
+    {"s": "MIL:FTSEMIB", "cc": "IT"},
+    {"s": "TVC:NI225", "cc": "JP"},
+    {"s": "TVC:KOSPI", "cc": "KR"},
+    {"s": "TVC:SHCOMP", "cc": "CN"},
+    {"s": "SZSE:399001", "cc": "CN"},
+    {"s": "HSI:HSI", "cc": "HK"},
     {"s": "TVC:STI", "cc": "SG"},
     {"s": "ASX:XJO", "cc": "AU"},
-    {"s": "TVC:KOSPI", "cc": "KR"},
-    {"s": "BMFBOVESPA:IBOV", "cc": "BR"},
-    {"s": "NSE:NIFTY", "cc": "IN"},
-    {"s": "MOEX:IMOEX", "cc": "RU"},
-    {"s": "TVC:NZ50G", "cc": "NZ"},
+    {"s": "NZX:NZ50G", "cc": "NZ"},
+    {"s": "TWSE:TAIEX", "cc": "TW"},
+    {"s": "FTSEMYX:FBMKLCI", "cc": "MY"},
+    {"s": "IDX:COMPOSITE", "cc": "ID"},
+    {"s": "TVC:SX5E", "cc": "EU"},
     {"s": "BME:IBC", "cc": "ES"},
-    {"s": "TVC:SSMI", "cc": "CH"},
+    {"s": "SIX:SMI", "cc": "CH"},
+    {"s": "GPW:WIG20", "cc": "PL"},
+    {"s": "EURONEXT:AEX", "cc": "NL"},
+    {"s": "EURONEXT:BEL20", "cc": "BE"},
+    {"s": "LUXSE:LUXX", "cc": "LU"},
+    {"s": "MOEX:IMOEX", "cc": "RU"},
+    {"s": "BELEX:BELEX15", "cc": "RS"},
+    {"s": "OMXRSE:OMXRGI", "cc": "LV"},
+    {"s": "OMXTSE:OMXTGI", "cc": "EE"},
+    {"s": "OMXVSE:OMXVGI", "cc": "LT"},
+    {"s": "BIST:XU100", "cc": "TR"},
+    {"s": "TASE:TA35", "cc": "IL"},
+    {"s": "NSE:NIFTY", "cc": "IN"},
+    {"s": "BSE:SENSEX", "cc": "IN"},
+    {"s": "DFM:DFMGI", "cc": "AE"},
+    {"s": "TADAWUL:TASI", "cc": "SA"},
+    {"s": "QSE:GNRI", "cc": "QA"},
+    {"s": "BAHRAIN:BSEX", "cc": "BH"},
+    {"s": "NSENG:NSE30", "cc": "NG"},
+    {"s": "EGX:EGX30", "cc": "EG"},
+    {"s": "BMFBOVESPA:IBOV", "cc": "BR"},
+    {"s": "BMV:ME", "cc": "MX"},
+    {"s": "BCBA:IMV", "cc": "AR"},
+    {"s": "BVC:IGBC", "cc": "CO"},
+    {"s": "BCS:IPSA", "cc": "CL"},
+    {"s": "BVL:SPBLPGPT", "cc": "PE"}
 ];
 
 const symbolsPriorities = {};
@@ -337,3 +503,63 @@ fs.writeFileSync(dstPath, JSON.stringify(
         "fields": ["sector", "country", "index_priority", "country_code"],
         "symbols": dstSymbols
     }, null, 2));
+
+
+// update used groups list
+function generateUsedGroups() {
+    const usedGroupsList = groups.map(function (gr) {
+        const url = new URL(gr.url);
+        const groupNames = url.pathname.split('/');
+        const groupName = groupNames[groupNames.length - 1];
+        return groupName + url.search;
+    });
+    usedGroupsList.sort();
+    return usedGroupsList;
+}
+
+fs.writeFileSync(dstGroupsPath, JSON.stringify({
+    "time": new Date().toISOString() + '',
+    "fields": [],
+    "symbols": generateUsedGroups().map(function (s) {
+        return {"s": s, "f": []};
+    })
+}, null, 2));
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+(function(addedGroupsArr) {
+    const allGroups = JSON.parse(requestSync("GET", "http://idc.tradingview.com/udf_proxy/").getBody());
+    const addedGroupsHash = {};
+    addedGroupsArr.forEach(function (gr) {
+        const url = new URL(gr.url);
+        const groupNames = url.pathname.split('/');
+        const groupName = groupNames[groupNames.length - 1];
+        addedGroupsHash[groupName] = true;
+    });
+
+    const skippedIndices = {
+        "euronext_non_primary_indices": true,
+        "euronext_primary_indices": true,
+        "international_indices": true,
+        "russel_indices": true,
+        "russell_indices": true,
+        "malaysia_indices": true,
+        "cboe_indices": true,
+        "nasdaq_indices": true,
+        "nyse_gif_indices": true,
+        "nyse_indices": true,
+        "hongkong_indices": true,
+        "singapore_indices": true,
+        "tocom_indices": true,
+        "tokyo_indices": true,
+        "topix_indices": true,
+    };
+
+    const missingGroups = Object.keys(allGroups.feeds.idc).filter(function (gr) {
+        return gr.endsWith("_indices") && !skippedIndices[gr];
+    }).filter(function (groupName) {
+        return !addedGroupsHash[groupName];
+    });
+    missingGroups.sort();
+    console.log("Not used index groups:\n" + JSON.stringify(missingGroups, null, 2));
+})(groups);
