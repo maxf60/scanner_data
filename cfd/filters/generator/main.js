@@ -242,7 +242,32 @@ const groups = [
         "url": "vilnius_indices",
         "include": ["OMXVSE:OMXVGI"],
         "region": "Europe"
-    }];
+    },
+    {
+        "url": "south_africa_tvc_indices",
+        "region": "Africa"
+    },
+    {
+        "url": "helsinki_basic_indices",
+        "include": ["OMXHEX:OMXH25"],
+        "region": "Europe"
+    },
+    {
+        "url": "iceland_indices",
+        "include": ["OMXICE:OMXI8"],
+        "region": "Europe"
+    },
+    {
+        "url": "stockholm_basic_indices",
+        "include": ["OMXSTO:OMXS30"],
+        "region": "Europe"
+    },
+    {
+        "url": "copenhagen_indices",
+        "include": ["OMXCOP:OMXC25"],
+        "region": "Europe"
+    },
+];
 
 const types = {
     "cfd": true,
@@ -276,7 +301,7 @@ groups.forEach(function (path) {
     }
 
     const urlO = new URL(url);
-    urlO.searchParams.append('fields', 'symbol,type,description');
+    urlO.searchParams.append('fields', 'symbol,type,description,country');
     url = urlO.toString();
     const response = requestSync("GET", url);
     if (response.statusCode != 200) {
@@ -425,12 +450,17 @@ const majorIndices = [
     {"s": "EURONEXT:BEL20", "cc": "BE"},
     {"s": "LUXSE:LUXX", "cc": "LU"},
     {"s": "MOEX:IMOEX", "cc": "RU"},
+    { "s":"OMXHEX:OMXH25", "cc":"FI" },
+    { "s":"OMXICE:OMXI8",  "cc":"IS" },
+    { "s":"OMXSTO:OMXS30", "cc":"SE" },
+    { "s":"OMXCOP:OMXC25", "cc":"DK" },
     {"s": "BELEX:BELEX15", "cc": "RS"},
     {"s": "OMXRSE:OMXRGI", "cc": "LV"},
     {"s": "OMXTSE:OMXTGI", "cc": "EE"},
     {"s": "OMXVSE:OMXVGI", "cc": "LT"},
     {"s": "BIST:XU100", "cc": "TR"},
     {"s": "TASE:TA35", "cc": "IL"},
+    {"s": "TVC:SA40", "cc": "ZA"},
     {"s": "NSE:NIFTY", "cc": "IN"},
     {"s": "BSE:SENSEX", "cc": "IN"},
     {"s": "DFM:DFMGI", "cc": "AE"},
@@ -444,7 +474,7 @@ const majorIndices = [
     {"s": "BCBA:IMV", "cc": "AR"},
     {"s": "BVC:IGBC", "cc": "CO"},
     {"s": "BCS:IPSA", "cc": "CL"},
-    {"s": "BVL:SPBLPGPT", "cc": "PE"}
+    {"s": "BVL:SPBLPGPT", "cc": "PE"},
 ];
 
 const indicesPriorities = {};
@@ -494,12 +524,14 @@ function calcHash(name, limit) {
     return result;
 }
 
-function getBondRegionPriority(description) {
-    const idx = bondsRegionsPriority.findIndex(reg => description.startsWith(reg));
-    if (idx >= 0) {
-        return idx;
+function getBondRegionPriority(description, notUseRegionPriority) {
+    if (!notUseRegionPriority) {
+        const idx = bondsRegionsPriority.findIndex(reg => description.startsWith(reg));
+        if (idx >= 0) {
+            return idx;
+        }
     }
-    return bondsRegionsPriority.length + calcHash(description, 2);
+    return bondsRegionsPriority.length + calcHash(description, 4);
 }
 
 const rxBondParser = /[A-Z]{2}([0-9]{2})(M)?Y?/;
@@ -513,16 +545,27 @@ function getBondNamePriority(ticker) {
     return (parseResult[2] ? 0 : 1) * 10 + (+parseResult[1]);
 }
 
+function detectBondPriority(s, notUseRegionPriority) {
+    const description = s.f[2];
+    const regionP = getBondRegionPriority(description, notUseRegionPriority);
+    const nameP = getBondNamePriority(s.f[0]);
+    return regionP * 1000 + nameP;
+}
+
 function detectPriority(s, cat) {
     switch (cat) {
-        case "bond": {
-            const description = s.f[2];
-            const regionP = getBondRegionPriority(description);
-            const nameP = getBondNamePriority(s.f[0]);
-            return regionP * 1000 + nameP;
-        }
+        case "bond":
+            return detectBondPriority(s);
     }
     return indicesPriorities[s.s];
+}
+
+function detectPriority2(s, cat) {
+    switch (cat) {
+        case "bond":
+            return detectBondPriority(s, true);
+    }
+    return null;
 }
 
 const symbolsCountryCode = {};
@@ -615,6 +658,9 @@ function getCountryCode(s, cat) {
         }
         return result;
     }
+    if (s.f[3]){
+        //return s.f[3].toUpperCase();
+    }
     return undefined;
 }
 
@@ -636,6 +682,7 @@ symbols.forEach(function (s) {
     dst.f[1] = reg;
     dst.f[2] = detectPriority(s, cat);
     dst.f[3] = getCountryCode(s, cat);
+    dst.f[4] = detectPriority2(s, cat);
 
     dstSymbols.push(dst);
 });
@@ -654,8 +701,12 @@ if (emptyCountryCount) {
 
 fs.writeFileSync(dstPath, JSON.stringify(
     {
-        "time": new Date().toISOString() + '',
-        "fields": ["sector", "country", "index_priority", "country_code"],
+        "fields": [
+            "sector",
+            "country",
+            "index_priority",
+            "country_code",
+            "forex_priority"],
         "symbols": dstSymbols
     }, null, 2));
 
@@ -673,7 +724,6 @@ function generateUsedGroups() {
 }
 
 fs.writeFileSync(dstGroupsPath, JSON.stringify({
-    "time": new Date().toISOString() + '',
     "fields": [],
     "symbols": generateUsedGroups().map(function (s) {
         return {"s": s, "f": []};
@@ -708,6 +758,23 @@ fs.writeFileSync(dstGroupsPath, JSON.stringify({
         "tocom_indices": true,
         "tokyo_indices": true,
         "topix_indices": true,
+        "cboe_russell_indices": true,
+        "euronext_non_primary_amsterdam_indices": true,
+        "euronext_non_primary_brussels_indices": true,
+        "euronext_non_primary_europe_indices": true,
+        "euronext_non_primary_lisbon_indices": true,
+        "euronext_non_primary_paris_indices": true,
+        "euronext_primary_amsterdam_indices": true,
+        "euronext_primary_brussels_indices": true,
+        "euronext_primary_europe_indices": true,
+        "euronext_primary_lisbon_indices": true,
+        "euronext_primary_paris_indices": true,
+        "vienna_indices": true,
+        "vietnam_indices": true,
+        "copenhagen_basic_indices": true,
+        "helsinki_indices": true,
+        "iceland_basic_indices": true,
+        "stockholm_indices": true,
     };
 
     const missingGroups = Object.keys(allGroups.feeds.idc).filter(function (gr) {

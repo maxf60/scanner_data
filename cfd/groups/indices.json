@@ -1,5 +1,4 @@
 {
-  "time": "2018-05-30T14:45:58.754Z",
   "fields": [],
   "symbols": [
     {
@@ -51,6 +50,10 @@
       "f": []
     },
     {
+      "s": "copenhagen_indices",
+      "f": []
+    },
+    {
       "s": "dj_indices?typespecs=main",
       "f": []
     },
@@ -96,6 +99,14 @@
     },
     {
       "s": "hangseng_indices",
+      "f": []
+    },
+    {
+      "s": "helsinki_basic_indices",
+      "f": []
+    },
+    {
+      "s": "iceland_indices",
       "f": []
     },
     {
@@ -183,11 +194,19 @@
       "f": []
     },
     {
+      "s": "south_africa_tvc_indices",
+      "f": []
+    },
+    {
       "s": "sp_indices?typespecs=main",
       "f": []
     },
     {
       "s": "spanish_indices",
+      "f": []
+    },
+    {
+      "s": "stockholm_basic_indices",
       "f": []
     },
     {

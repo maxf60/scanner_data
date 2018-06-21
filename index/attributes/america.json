@@ -1,5 +1,4 @@
 {
-  "time": "2017-12-18T15:35:01.564Z",
   "fields": [
     "sector",
     "index_priority"
@@ -7,13 +6,6 @@
   "symbols": [
     {
       "s": "CBOE:OEX",
-      "f": [
-        null,
-        null
-      ]
-    },
-    {
-      "s": "CBOE:RUI",
       "f": [
         null,
         null
@@ -125,6 +117,13 @@
       ]
     },
     {
+      "s": "NASDAQ:HGX",
+      "f": [
+        null,
+        17
+      ]
+    },
+    {
       "s": "NASDAQ:IXIC",
       "f": [
         null,
@@ -132,17 +131,38 @@
       ]
     },
     {
-      "s": "NYSE:HGX",
-      "f": [
-        null,
-        17
-      ]
-    },
-    {
-      "s": "NYSE:NDX",
+      "s": "NASDAQ:NDX",
       "f": [
         null,
         7
+      ]
+    },
+    {
+      "s": "NASDAQ:OSX",
+      "f": [
+        null,
+        15
+      ]
+    },
+    {
+      "s": "NASDAQ:SOX",
+      "f": [
+        null,
+        19
+      ]
+    },
+    {
+      "s": "NASDAQ:UTY",
+      "f": [
+        null,
+        18
+      ]
+    },
+    {
+      "s": "NASDAQ:XAU",
+      "f": [
+        null,
+        16
       ]
     },
     {
@@ -150,34 +170,6 @@
       "f": [
         null,
         11
-      ]
-    },
-    {
-      "s": "NYSE:OSX",
-      "f": [
-        null,
-        15
-      ]
-    },
-    {
-      "s": "NYSE:SOX",
-      "f": [
-        null,
-        19
-      ]
-    },
-    {
-      "s": "NYSE:UTY",
-      "f": [
-        null,
-        18
-      ]
-    },
-    {
-      "s": "NYSE:XAU",
-      "f": [
-        null,
-        16
       ]
     },
     {
@@ -195,21 +187,21 @@
       ]
     },
     {
-      "s": "RUSSEL:RUA",
+      "s": "RUSSELL:RUA",
       "f": [
         null,
         8
       ]
     },
     {
-      "s": "RUSSEL:RUI",
+      "s": "RUSSELL:RUI",
       "f": [
         null,
         10
       ]
     },
     {
-      "s": "RUSSEL:RUT",
+      "s": "RUSSELL:RUT",
       "f": [
         null,
         9
