@@ -1,5 +1,5 @@
 {
-  "time": "2018-06-19T10:25:09.978Z",
+  "time": "2018-06-25T14:51:40.838Z",
   "fields": [
     "sector",
     "root"
@@ -12544,6 +12544,13 @@
     },
     {
       "s": "NYMEX:UXM2022",
+      "f": [
+        null,
+        "NYMEX:UX"
+      ]
+    },
+    {
+      "s": "NYMEX:UXM2023",
       "f": [
         null,
         "NYMEX:UX"
