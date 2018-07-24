@@ -2133,20 +2133,6 @@
       ]
     },
     {
-      "s": "BITTREX:LGDBTC",
-      "f": [
-        "Legends Room",
-        "LGD"
-      ]
-    },
-    {
-      "s": "BITTREX:LGDUSD",
-      "f": [
-        "Legends Room",
-        "LGD"
-      ]
-    },
-    {
       "s": "BITTREX:LSKBTC",
       "f": [
         "Lisk",
@@ -3183,20 +3169,6 @@
       ]
     },
     {
-      "s": "HITBTC:QCNBTC",
-      "f": [
-        "QuazarCoin",
-        "QCN"
-      ]
-    },
-    {
-      "s": "HITBTC:QCNUSD",
-      "f": [
-        "QuazarCoin",
-        "QCN"
-      ]
-    },
-    {
       "s": "BITTREX:QWARKBTC",
       "f": [
         "Qwark",
@@ -4132,20 +4104,6 @@
       "f": [
         "Viberate",
         "VIB"
-      ]
-    },
-    {
-      "s": "BITTREX:VTRBTC",
-      "f": [
-        "vTorrent",
-        "VTR"
-      ]
-    },
-    {
-      "s": "BITTREX:VTRUSD",
-      "f": [
-        "vTorrent",
-        "VTR"
       ]
     },
     {
