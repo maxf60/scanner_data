@@ -2,11 +2,9 @@
   "time": "2019-07-23T19:40:00.000Z",
   "fields": [],
   "symbols": [
-    { "f": [], "s": "CBOE"},
     { "f": [], "s": "DJ"},
     { "f": [], "s": "NASDAQ&type=index"},
     { "f": [], "s": "NYSE&type=index"},
-    { "f": [], "s": "RUSSELL"},
     { "f": [], "s": "SP&type=index"}
   ]
 }
